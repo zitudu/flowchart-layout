@@ -1,0 +1,11 @@
+{
+  "name": "flowchart-layout",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:zitudu/flowchart-layout.git",
+  "author": "zitudu <zitudu@protonmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
+}
