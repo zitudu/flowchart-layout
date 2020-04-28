@@ -11,18 +11,17 @@ export function sum (...items: number[]): number {
   return items.reduce((acc, it) => acc + it, 0)
 }
 
-function diff<T> (a: T[], b: T[]): T[] {
-  const ret: T[] = []
-  for (const it of a) {
-    if (!b.includes(it)) ret.push(it)
-  }
-  return ret
-}
-
 export function interset<T> (a: T[], b: T[]): T[] {
   const ret: T[] = []
   for (let i = 0; i < a.length; i++) {
     if (b.includes(a[i])) ret.push(a[i])
   }
   return ret
+}
+
+export function diff<T> (items: T[], getVal: (it: T) => number): {max: number; min: number; val: number} {
+  const max = Math.max(...items.map(getVal))
+  const min = Math.min(...items.map(getVal)) || 0
+  const val = max - min
+  return { max, min, val }
 }

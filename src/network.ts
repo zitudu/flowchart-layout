@@ -7,8 +7,11 @@ export class Node<T> {
   parents: Node<T>[] = []
   children: Node<T>[] = []
   group: number[] = []
-  groupedChildren: Node<T>[][] = []
-  data?: T
+  groupedChildren: {nodes: Node<T>[]; groupId: number}[] = []
+  groupEnd = -1
+
+  /* eslint-disable-next-line no-useless-constructor */
+  constructor (public data?: T) {}
 
   setData (data: T) {
     this.data = data
@@ -42,9 +45,13 @@ export class Node<T> {
   }
 
   removeParent (node: Node<T>): this {
-    const deleteIndex = this.children.findIndex(it => it === node)
-    this.children.splice(deleteIndex, 1)
+    const deleteIndex = this.parents.findIndex(it => it === node)
+    this.parents.splice(deleteIndex, 1)
     return this
+  }
+
+  noParent (): boolean {
+    return this.parents.length === 0
   }
 
   addGroup (group: number) {
@@ -71,5 +78,10 @@ export class Node<T> {
   get width (): number {
     if (this.noChild()) return 1
     return sum(...this.children.map(node => node.width))
+  }
+
+  get depth (): number {
+    if (this.noParent()) return 0
+    return Math.max(...this.parents.map(it => it.depth)) + 1
   }
 }
